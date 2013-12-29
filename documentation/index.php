@@ -63,9 +63,14 @@ foreach ($files as $file) {
 
 $URLfileName = $_GET['file']; // Pick up the filename from the URL
 
+if (is_null($URLfileName)) { // If no filename - go to the home page
+    $URLfileName = $homePage;
+}
+
+
 // Get the names ready to display on the page
 if (strpos($URLfileName, '--') != true) {
-    $URLcategory = '';
+    $URLcategory = '---';
     $URLpageName = createPageName($URLfileName);
     } else {
     $URLcategory = current(explode("--", $URLfileName)); // extract category name to display in breadcrumb trail
@@ -157,8 +162,9 @@ $pageTitle = $application.' Documentation > '.$URLcategory.' > '.$URLpageName;
         <div id="wrapper">
             <!-- Sidebar -->
       <div id="sidebar-wrapper">
+
         <ul class="sidebar-nav">
-          <li class="sidebar-brand"><a href="<?php echo $homePageURL;?>">GitHub Wiki Player</a></li>
+          <li class="sidebar-brand"><a href="<?php echo $homePageURL;?>"><img src="../website_code/images/xerteLogo.jpg" alt="Xerte logo" /></a></li>
             <?php
           // print list of files in wiki as menu
 
@@ -182,8 +188,7 @@ $pageTitle = $application.' Documentation > '.$URLcategory.' > '.$URLpageName;
       <!-- Main space for a primary marketing message or call to action -->
       <div class="well">
         <h1><?php echo $application; ?> > Documentation</h1>
-        <p>These documents are automatically created from the application wiki on GitHub.</p>
-        <p>If they are wrong please make a suggestion for the change via the <a href="#">Issues page</a>, or, if you're a project contributor, please edit the <a href="#">wiki</a> directly. 
+        <p>If they are wrong please make a suggestion for the change via the <a href="https://github.com/thexerteproject/xerteonlinetoolkits/issues">Issues page</a>.</p>
       </div>
       
       

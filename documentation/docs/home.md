@@ -1,0 +1,3 @@
+Xerte Online Toolkits is a server-based suite of tools for content authors. Elearning materials can be authored quickly and easily using browser-based tools, with no programming required.
+
+Xerte Online Toolkits is aimed at content authors, who will assemble content using simple wizards. Content authors can easily collaborate on projects. Xerte Online Toolktis can be extended by developers using Xerte.

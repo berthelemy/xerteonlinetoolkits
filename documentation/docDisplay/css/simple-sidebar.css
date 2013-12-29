@@ -51,9 +51,10 @@
 }
 
 .sidebar-nav > .sidebar-brand {
-  height: 65px;
+  height: 85px;
   line-height: 60px;
   font-size: 18px;
+  background-color: #4d585e;
 }
 
 .sidebar-nav > .sidebar-brand a {
