@@ -26,6 +26,8 @@
   list-style: none;
   margin: 0;
   padding: 0;
+  height: 95%;
+  overflow-y: scroll;
 }
 
 .sidebar-nav li {
