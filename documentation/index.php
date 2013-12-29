@@ -7,7 +7,9 @@ $homePageURL = "./index.php?file=".$homePage;
 // Function to setup the menu list
 
 function menuSetup($i)
+// Based on http://stackoverflow.com/questions/10779546/recursiveiteratoriterator-and-recursivedirectoryiterator-to-nested-html-lists
 {
+    global $homePageURL;
     $depth = 0;
     $logo = '<li class="sidebar-brand"><a href="'.$homePageURL.'"><img src="../website_code/images/xerteLogo.jpg" alt="Xerte logo" /></a></li>';
     $menu = $menu.'<ul class="sidebar-nav">';
@@ -59,62 +61,6 @@ function createPageName($fname) {
 }
 
 
-// Get list of files in docs directory - to show in menu
-/*
-$files = array();
-$directories = array();
-$dir = opendir($docsDir); // open the docs directory. Also do an err check.
-while(false != ($file = readdir($dir))) {
-        if(($file != ".") and ($file != "..") and ($file != "index.php")) {
-                if (is_dir($docsDir.'/'.$file)) {
-                    $directories[] = $docsDir.'/'.$file; // put in directory array
-                } else {
-                    $files[] = $file; // put in file array.    
-                }
-                
-
-        }   
-}
-
-
-
-
-natsort($files); // sort files
-natsort($directories); // sort directories
-
-// Go through each file and create a multi-dimensional array of files, page titles and categories
-
-$pages = array();
-foreach ($files as $file) {
-    if ($file != '.git') {
-        $pageName = $file;
-        /*
-        // Check if file has a category
-        if (strpos($file, '--') != true) {
-
-            $category = 'Uncategorized';
-            $pageName = $file;
-            } else {
-            // if file doesn't have a category, then extract it, leaving the page name
-            $arr = explode('--', $file);
-            $category = $arr[0];
-            $pageName = $arr[1];
-            }
-
-        // Now setup the $page array
-        $page['category']= $category; // Setup $page array: category                
-
-        $page['pageName'] = createPageName($pageName); // Make name to go in menu - put in $page array: pageName
-
-        $page['fileName'] = $file; // Put filename in $page array: fileName
-
-        $pages[] = $page; // Add this set of page items to the $pages array
-    } // end of check for .git
-} // end of Foreach
-
-*/
-
-
 // Get markdown file to display from URL
 
 $URLfileName = $_GET['file']; // Pick up the filename from the URL
@@ -129,18 +75,6 @@ if (is_null($URLfileName)) { // If no filename - go to the home page
 // Get the names ready to display on the page
 
 $URLpageName = createPageName($URLfileName);
-/*
-if (strpos($URLfileName, '--') != true) {
-    $URLcategory = '---';
-    $URLpageName = createPageName($URLfileName);
-    } else {
-    $URLcategory = current(explode("--", $URLfileName)); // extract category name to display in breadcrumb trail
-    // Tidy up file name to display in page title
-    $arr = explode('--', $URLfileName);
-    $URLpageName = $arr[1]; // Page name = 2nd element in the exploded array
-    $URLpageName = createPageName($URLpageName);
-    }
-*/
 
 // Put contents of file into string
 
@@ -220,42 +154,16 @@ $pageTitle = $application.' Documentation > '.$URLcategory.' > '.$URLpageName;
  
     </script>
     <!--<div class="container theme-showcase">-->
-        <div id="wrapper">
-            <!-- Sidebar -->
-      <div id="sidebar-wrapper">
+    <div id="wrapper">
+    <!-- Sidebar -->
+        <div id="sidebar-wrapper">
 
-        <ul class="sidebar-nav">
-          <li class="sidebar-brand"><a href="<?php echo $homePageURL;?>"><img src="../website_code/images/xerteLogo.jpg" alt="Xerte logo" /></a></li>
             <?php
           // print list of files in docsDir as menu
-
-            // $categoryTemp = '';
-
-            //foreach($pages as $page) { 
-                /*
-                $category = $page['category'];
-                if($category != $categoryTemp) {
-                    echo($page['category']);
-                    $categoryTemp = $category; // TODO: Change this to collapsible list
-                }
-                */
-
-                echo menuSetup($iterator);
-                
-                //echo('<li><a href="index.php?file='.$page['fileName'].'">'.$page['pageName'].'</a></li>');
-
-                //}
-            //foreach($directories as $directory) {
-
-                //$directory = $docsDir.'/'.$directory;
-                
-                //echo('<li><a href="index.php?file='.$directory.'">'.$directory.'</a></li>');
-
-                //}
-            ?>
-          
-        </ul>
-      </div>
+            echo menuSetup($iterator);  
+            ?>  
+        
+        </div>
 
       <!-- Main space for a primary marketing message or call to action -->
       <div class="well">
