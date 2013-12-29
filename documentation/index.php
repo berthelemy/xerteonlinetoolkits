@@ -9,7 +9,8 @@ function createPageName($fname) {
 
     $name = str_replace(".md", "", $fname); // remove extension
     $name = str_replace("-", " ", $name); // replace - with space
-
+    $name = str_replace("_", " ", $name); // replace - with space
+    $name = ucwords(strtolower($name)); // set first character to be a capital letter
     return $name;
 
 }
