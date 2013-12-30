@@ -1,23 +1,31 @@
 <?php
+
+// TODO - sort out page titles so they only show the filename
+// TODO - sort out toggle menu for sub-ul's
+
 include 'docDisplay/config.php'; // Include configuration settings
 require_once 'docDisplay/php-markdown-lib/Michelf/Markdown.php'; // Include Markdown parser
 
 $homePageURL = "./index.php?file=".$homePage;
 
-// Function to setup the menu list
+
+
+// Functions to setup the menu list
+
+
 
 function menuSetup($i)
 // Based on http://stackoverflow.com/questions/10779546/recursiveiteratoriterator-and-recursivedirectoryiterator-to-nested-html-lists
 {
     global $homePageURL;
     $depth = 0;
-    $logo = '<li class="sidebar-brand"><a href="'.$homePageURL.'"><img src="../website_code/images/xerteLogo.jpg" alt="Xerte logo" /></a></li>';
+    $logo = '<li class="sidebar-brand nav nav-list"><a href="'.$homePageURL.'"><img src="../website_code/images/xerteLogo.jpg" alt="Xerte logo" /></a></li>';
     $menu = $menu.'<ul class="sidebar-nav">';
     $menu = $menu.$logo;
+
     foreach ($i as $path) {
         $depth1 = $i->getDepth();
-        $fileName = $i->getFilename();
-        //echo $depth." ".$depth1;
+        $pathName = $i->getPathname();
         
         if ($depth < $depth1)
         {
@@ -29,8 +37,8 @@ function menuSetup($i)
             $depth = $depth1;
         }
         
-           $menu = $menu.'<li><a href="index.php?file='.$fileName.'">'.createPageName($fileName).'</a></li>';
-        
+           $menu = $menu.'<li><a href="index.php?file='.$pathName.'">'.createPageName($fileName).'</a></li>';
+            $previousItem = $i;
     }
     $menu = $menu.'</ul>';
     return $menu;
@@ -78,7 +86,7 @@ $URLpageName = createPageName($URLfileName);
 
 // Put contents of file into string
 
-$fileContents = file_get_contents($docsDir.'/'.$URLfileName);
+$fileContents = file_get_contents($URLfileName);
 
 // Translate from markdown to HTML
 
